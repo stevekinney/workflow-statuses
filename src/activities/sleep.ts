@@ -1,5 +1,5 @@
-import { sleep } from '@temporalio/workflow';
+import { Context } from '@temporalio/activity';
 
-export default async function (ms = Number.MAX_SAFE_INTEGER): Promise<void> {
-  await sleep(ms);
+export default async function (ms = '10 days'): Promise<void> {
+  await Context.current().sleep(ms);
 }
