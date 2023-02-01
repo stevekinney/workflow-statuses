@@ -8,23 +8,23 @@ const client = new Client({
   connection,
 });
 
-await client.workflow.start(easilyCompleted, {
-  args: ['Temporal'],
-  taskQueue: 'workflow-statuses',
-  workflowId: 'Completed-' + nanoid(),
-});
+// await client.workflow.start(easilyCompleted, {
+//   args: ['Temporal'],
+//   taskQueue: 'workflow-statuses',
+//   workflowId: 'Completed-' + nanoid(),
+// });
 
-await client.workflow.start(longRunning, {
-  args: [],
-  taskQueue: 'workflow-statuses',
-  workflowId: 'Running-' + nanoid(),
-});
+// await client.workflow.start(longRunning, {
+//   args: [],
+//   taskQueue: 'workflow-statuses',
+//   workflowId: 'Running-' + nanoid(),
+// });
 
-await client.workflow.start(failing, {
-  args: [],
-  taskQueue: 'workflow-statuses',
-  workflowId: 'Failed-' + nanoid(),
-});
+// await client.workflow.start(failing, {
+//   args: [],
+//   taskQueue: 'workflow-statuses',
+//   workflowId: 'Failed-' + nanoid(),
+// });
 
 await client.workflow
   .start(longRunning, {

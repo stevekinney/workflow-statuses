@@ -1,5 +1,5 @@
 import { sleep } from '@temporalio/workflow';
 
-export default async function (ms = Number.MAX_SAFE_INTEGER): Promise<void> {
+export default async function (ms = '1 month'): Promise<void> {
   await sleep(ms);
 }
