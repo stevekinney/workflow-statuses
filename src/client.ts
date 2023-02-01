@@ -10,26 +10,26 @@ const client = new Client({
 
 await client.workflow.start(easilyCompleted, {
   args: ['Temporal'],
-  taskQueue: 'hello-world',
+  taskQueue: 'workflow-statuses',
   workflowId: 'Completed-' + nanoid(),
 });
 
 await client.workflow.start(longRunning, {
   args: [],
-  taskQueue: 'hello-world',
+  taskQueue: 'workflow-statuses',
   workflowId: 'Running-' + nanoid(),
 });
 
 await client.workflow.start(failing, {
   args: [],
-  taskQueue: 'hello-world',
+  taskQueue: 'workflow-statuses',
   workflowId: 'Failed-' + nanoid(),
 });
 
 await client.workflow
   .start(longRunning, {
     args: [],
-    taskQueue: 'hello-world',
+    taskQueue: 'workflow-statuses',
     workflowId: 'Canceled-' + nanoid(),
   })
   .then((workflow) => workflow.cancel());

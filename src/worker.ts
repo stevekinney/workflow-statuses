@@ -9,12 +9,12 @@ const workflowsPath = require.resolve('./workflows');
 const worker = await Worker.create({
   workflowsPath,
   activities,
-  taskQueue: 'hello-world',
+  taskQueue: 'workflow-statuses',
 });
 
 await worker.run();
 
 process.on('beforeExit', (code) => {
+  console.log(`Shutting down with code ${code}…`)
   worker.shutdown();
-  console.log('Process beforeExit event with code: ', code);
 });
