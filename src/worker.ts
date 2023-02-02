@@ -15,6 +15,6 @@ const worker = await Worker.create({
 await worker.run();
 
 process.on('beforeExit', (code) => {
-  console.log(`Shutting down with code ${code}…`)
+  console.log(`Shutting down with code ${code}…`);
   worker.shutdown();
 });

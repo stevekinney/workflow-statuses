@@ -4,33 +4,64 @@ import { nanoid } from 'nanoid';
 
 const connection = await Connection.connect();
 
+const sleep = async <T = unknown>(value: T, ms = 500): Promise<T> => {
+  await new Promise((resolve) => setTimeout(resolve, 500));
+  return value;
+};
+
+const taskQueue = 'workflow-statuses';
+
 const client = new Client({
   connection,
 });
 
 await client.workflow.start(easilyCompleted, {
-  args: ['Temporal'],
-  taskQueue: 'workflow-statuses',
-  workflowId: 'Completed-' + nanoid(),
+  args: [2],
+  taskQueue,
+  workflowId: `Completed-${nanoid()}`,
 });
 
 await client.workflow.start(longRunning, {
   args: [],
-  taskQueue: 'workflow-statuses',
-  workflowId: 'Running-' + nanoid(),
+  taskQueue,
+  workflowId: `Running-${nanoid()}`,
 });
 
 await client.workflow.start(failing, {
   args: [],
-  taskQueue: 'workflow-statuses',
-  workflowId: 'Failed-' + nanoid(),
+  taskQueue,
+  workflowId: `Failed-${nanoid()}`,
 });
 
-const workflow = await client.workflow.start(longRunning, {
-  args: [],
-  taskQueue: 'workflow-statuses',
-  workflowId: 'Canceled-' + nanoid(),
+await client.workflow
+  .start(longRunning, {
+    args: [],
+    taskQueue,
+    workflowId: `Canceled-${nanoid()}`,
+  })
+  .then(sleep)
+  .then((workflow) => workflow.cancel());
+
+await client.workflow
+  .start(longRunning, {
+    args: [],
+    taskQueue,
+    workflowId: `Terminated-${nanoid()}`,
+  })
+  .then(sleep)
+  .then((workflow) => workflow.terminate());
+
+await client.workflow.start(easilyCompleted, {
+  args: [2, 1],
+  taskQueue,
+  workflowId: `ContinuedAsNew-${nanoid()}`,
 });
-// give time for Activity to start
-await new Promise((resolve) => setTimeout(resolve, 500));
-await workflow.cancel();
+
+try {
+  await client.workflow.execute(longRunning, {
+    args: [],
+    taskQueue,
+    workflowId: `TimeOut-${nanoid()}`,
+    workflowExecutionTimeout: '1s',
+  });
+} catch (error) {}
