@@ -61,7 +61,7 @@ try {
   await client.workflow.execute(longRunning, {
     args: [],
     taskQueue,
-    workflowId: `TimeOut-${nanoid()}`,
+    workflowId: `TimedOut-${nanoid()}`,
     workflowExecutionTimeout: '1s',
   });
 } catch (error) {}
