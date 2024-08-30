@@ -1,0 +1,52 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start Worker and Workflow",
+      "dependsOn": ["Start Worker", "Start Workflow"],
+      "presentation": {
+        "group": "workerAndWorkflow",
+        "panel": "dedicated"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Start Worker",
+      "type": "shell",
+      "command": "pnpm start:worker",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "presentation": {
+        "group": "workerAndWorkflow",
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "Start Workflow",
+      "type": "shell",
+      "command": "pnpm start:workflow",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "presentation": {
+        "group": "workerAndWorkflow",
+        "panel": "dedicated"
+      }
+    },
+    {
+      "type": "npm",
+      "script": "start",
+      "problemMatcher": [],
+      "label": "npm: start",
+      "detail": "concurrently -n worker,client -c blue,green \"npm run start:worker\" \"npm run start:workflow\""
+    }
+  ]
+}

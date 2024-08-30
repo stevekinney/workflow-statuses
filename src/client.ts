@@ -1,5 +1,5 @@
 import { Connection, Client } from '@temporalio/client';
-import { easilyCompleted, longRunning, failing } from './workflows';
+import { easilyCompleted, longRunning, failing } from './workflows.js';
 import { nanoid } from 'nanoid';
 
 const connection = await Connection.connect({});
