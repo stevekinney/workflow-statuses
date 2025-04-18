@@ -2,13 +2,7 @@ import { Connection, Client } from '@temporalio/client';
 import { easilyCompleted, longRunning, failing } from './workflows.js';
 import { nanoid } from 'nanoid';
 
-import 'dotenv/config';
-
-const connection = await Connection.connect({
-  address: 'us-east-1.aws.api.temporal.io:7233',
-  apiKey: process.env.TEMPORAL_API_KEY,
-  connectTimeout: 3000,
-});
+const connection = await Connection.connect({});
 
 const sleep = async <T = unknown>(value: T, ms = 500): Promise<T> => {
   await new Promise((resolve) => setTimeout(resolve, 500));
@@ -17,10 +11,8 @@ const sleep = async <T = unknown>(value: T, ms = 500): Promise<T> => {
 
 const taskQueue = 'workflow-statuses';
 
-// Use the appropriate namespace based on connection type
 const client = new Client({
   connection,
-  namespace: process.env.TEMPORAL_NAMESPACE,
 });
 
 for (let i = 0; i < 5; ++i) {
