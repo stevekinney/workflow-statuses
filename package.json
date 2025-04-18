@@ -6,7 +6,6 @@
   "scripts": {
     "build": "tsc --build",
     "build.watch": "tsc --build --watch",
-    "lint": "eslint .",
     "start": "concurrently -n worker,client -c blue,green \"npm run start:worker\" \"npm run start:workflow\"",
     "start:worker": "esno src/worker.ts",
     "start:workflow": "esno src/client.ts"
@@ -34,13 +33,9 @@
     "@typescript-eslint/eslint-plugin": "^7.8.0",
     "@typescript-eslint/parser": "^7.8.0",
     "concurrently": "^8.2.2",
-    "eslint": "^9.1.1",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-deprecation": "^2.0.0",
     "esno": "^4.7.0",
     "nodemon": "^3.1.0",
     "prettier": "^3.2.5",
     "typescript": "^5.4.5"
-  },
-  "packageManager": "pnpm@9.0.5+sha256.61bd66913b52012107ec25a6ee4d6a161021ab99e04f6acee3aa50d0e34b4af9"
+  }
 }

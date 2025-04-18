@@ -1,7 +1,7 @@
 import process from 'node:process';
 import { createRequire } from 'module';
 import { Worker } from '@temporalio/worker';
-import * as activities from './activities';
+import * as activities from './activities/index.js';
 
 const require = createRequire(import.meta.url);
 const workflowsPath = require.resolve('./workflows');
